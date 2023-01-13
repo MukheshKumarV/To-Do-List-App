@@ -1,0 +1,77 @@
+<html>
+<!-- This is an ejs file , a view template used to display infromation sent by the models to js ad js this file -->
+<head>
+    <title>
+        <%= locals.title%>
+    </title>
+    <!-- the local css -->
+    <link rel="stylesheet" href="/css/home.css">
+    <!-- the Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <b>
+        <!-- Title using bootstrap class-->
+        <h1 class="display-1 title">To Do List App</h1>
+    </b>
+    <br>
+    <!-- Add task form using  bootstrap class -->
+    <div class="container mt-3">
+        <h2>Add Task</h2>
+        <form id="addForm" action="/create-task" method="POST">
+            <div class="row">
+                <div class="col-lg-7 col-md-7 col-sm-7">
+                    <input type="text" name="name" placeholder="Task" class="form-control" id="item">
+                </div>
+                <br><br><br>
+                <div class="col-lg-7 col-md-7 col-sm-7">
+                    <input type="date" name="date" class="form-control" id="item">
+                </div>
+                <select class="form-select" name="category">
+                    <option value="Personal">Personal</option>
+                    <option value="Work">Work</option>
+                    <option value="School">School</option>
+                    <option value="Cleaning">Cleaning</option>
+                    <option value="Office">Office</option>
+                    <option value="Other">Other</option>
+                </select>
+                <br><br>
+                <div class="col-lg-5 col-md-5 col-sm-5">
+                    <button type="submit" class="btn btn-success">Add Task</button>
+                </div>
+            </div>
+        </form>
+        <!-- Remove and display task form using  bootstrap class -->
+        <form action="/delete-contact" method="POST">
+            <h1 class="display-5">Active Tasks</h1>
+            <ol class="list-group list-group-numbered">
+                <% for (let i of task_list) { %>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <input class="form-check-input me-1" type="checkbox" name="checkbox" value=<%=i.id %>>
+                            <h4>
+                                <%= i.taskName %>
+                            </h4>
+                            <div class="fw-bold">
+                                <%= i.taskDate %>
+                            </div>
+                        </div>
+                        <span class="badge bg-primary rounded-pill">
+                            <%= i.taskCategory %>
+                        </span>
+                    </li>
+                    <% } %>
+            </ol>
+            <br>
+            <br>
+            <div class="col-lg-5 col-md-5 col-sm-5">
+                <button type="submit" class="btn btn-danger">Delete Task</button>
+            </div>
+            
+        </form>
+        
+</body>
+
+</html>
